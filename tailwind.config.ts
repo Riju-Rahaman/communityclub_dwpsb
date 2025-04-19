@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -59,9 +58,39 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        gradient: {
+          "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "100% 50%" },
+        },
+        "text-glow": {
+          "0%, 100%": {
+            textShadow: "0 0 4px rgba(255,255,255,0.1)",
+          },
+          "50%": {
+            textShadow: "0 0 16px rgba(255,255,255,0.3)",
+          },
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+      },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        gradient: "gradient 15s ease infinite",
+        "text-glow": "text-glow 2s ease-in-out infinite",
+        "spin-slow": "spin-slow 3s linear infinite",
+        "fade-in": "fade-in 0.5s ease-out",
       },
     },
   },

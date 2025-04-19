@@ -49,4 +49,4 @@ const Announcements = () => {
   );
 };
 
-export default Events;
+export default Announcements;

@@ -2,6 +2,8 @@
 import MainNav from "@/components/MainNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, TreePine, Handshake, Users, Calendar } from "lucide-react";
+import MessageList from "@/components/MessageList";
+import MessageInput from "@/components/MessageInput";
 
 const activities = [
   {
@@ -48,6 +50,17 @@ const Index = () => {
         </div>
       </div>
 
+      {/* Group Chat Section */}
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <h2 className="text-3xl font-bold text-center mb-8">Club Community Chat</h2>
+        <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6">
+          <MessageList />
+          <div className="mt-4">
+            <MessageInput />
+          </div>
+        </div>
+      </div>
+
       {/* Activities Section */}
       <div className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-3xl font-bold text-center mb-12">Our Activities</h2>
@@ -65,48 +78,6 @@ const Index = () => {
               </CardContent>
             </Card>
           ))}
-        </div>
-      </div>
-
-      {/* Upcoming Events Preview */}
-      <div className="bg-gray-100 py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-8">Upcoming Events</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-accent" />
-                  Beach Cleanup Drive
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">Join us this weekend for our monthly beach cleanup initiative.</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-accent" />
-                  Tree Planting Day
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">Help us make our community greener by participating in our tree planting event.</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-accent" />
-                  Food Distribution
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">Monthly food distribution drive at local orphanages.</p>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </div>
     </div>

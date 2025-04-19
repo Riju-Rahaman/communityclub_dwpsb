@@ -1,11 +1,49 @@
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const MainNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      setIsLoggedIn(!!data.session);
+    };
+
+    checkSession();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setIsLoggedIn(!!session);
+      }
+    );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        toast.error('Logout failed', { description: error.message });
+      } else {
+        toast.success('Logged out successfully');
+        navigate('/auth');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+      toast.error('An unexpected error occurred');
+    }
+  };
 
   return (
     <nav className="bg-primary shadow-lg">
@@ -22,9 +60,23 @@ const MainNav = () => {
             <Link to="/" className="text-white hover:text-gray-200">Home</Link>
             <Link to="/events" className="text-white hover:text-gray-200">Events</Link>
             <Link to="/announcements" className="text-white hover:text-gray-200">Announcements</Link>
-            <Button variant="secondary" className="bg-secondary hover:bg-secondary/90">
-              Login
-            </Button>
+            {isLoggedIn ? (
+              <Button 
+                variant="secondary" 
+                className="bg-secondary hover:bg-secondary/90"
+                onClick={handleLogout}
+              >
+                <LogOut className="mr-2 h-4 w-4" /> Logout
+              </Button>
+            ) : (
+              <Button 
+                variant="secondary" 
+                className="bg-secondary hover:bg-secondary/90"
+                onClick={() => navigate('/auth')}
+              >
+                Login
+              </Button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -62,9 +114,23 @@ const MainNav = () => {
             >
               Announcements
             </Link>
-            <Button variant="secondary" className="w-full bg-secondary hover:bg-secondary/90">
-              Login
-            </Button>
+            {isLoggedIn ? (
+              <Button 
+                variant="secondary" 
+                className="w-full bg-secondary hover:bg-secondary/90"
+                onClick={handleLogout}
+              >
+                <LogOut className="mr-2 h-4 w-4" /> Logout
+              </Button>
+            ) : (
+              <Button 
+                variant="secondary" 
+                className="w-full bg-secondary hover:bg-secondary/90"
+                onClick={() => navigate('/auth')}
+              >
+                Login
+              </Button>
+            )}
           </div>
         </div>
       )}

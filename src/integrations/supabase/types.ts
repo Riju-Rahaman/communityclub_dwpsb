@@ -32,6 +32,8 @@ export type Database = {
       }
       profiles: {
         Row: {
+          avatar_url: string | null
+          bio: string | null
           class: string | null
           created_at: string | null
           first_name: string | null
@@ -42,9 +44,13 @@ export type Database = {
           profile_picture_url: string | null
           role: string | null
           section: string | null
+          theme: string | null
           updated_at: string | null
+          username: string | null
         }
         Insert: {
+          avatar_url?: string | null
+          bio?: string | null
           class?: string | null
           created_at?: string | null
           first_name?: string | null
@@ -55,9 +61,13 @@ export type Database = {
           profile_picture_url?: string | null
           role?: string | null
           section?: string | null
+          theme?: string | null
           updated_at?: string | null
+          username?: string | null
         }
         Update: {
+          avatar_url?: string | null
+          bio?: string | null
           class?: string | null
           created_at?: string | null
           first_name?: string | null
@@ -68,7 +78,9 @@ export type Database = {
           profile_picture_url?: string | null
           role?: string | null
           section?: string | null
+          theme?: string | null
           updated_at?: string | null
+          username?: string | null
         }
         Relationships: []
       }
@@ -77,7 +89,30 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      citext: {
+        Args: { "": boolean } | { "": string } | { "": unknown }
+        Returns: string
+      }
+      citext_hash: {
+        Args: { "": string }
+        Returns: number
+      }
+      citextin: {
+        Args: { "": unknown }
+        Returns: string
+      }
+      citextout: {
+        Args: { "": string }
+        Returns: unknown
+      }
+      citextrecv: {
+        Args: { "": unknown }
+        Returns: string
+      }
+      citextsend: {
+        Args: { "": string }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

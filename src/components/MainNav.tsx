@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, LogIn } from "lucide-react";
+import { Menu, X, LogIn, User } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -55,35 +54,6 @@ const MainNav = () => {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link to="/" className="text-white hover:text-gray-200">Home</Link>
-            {isLoggedIn && (
-              <>
-                <Link to="/events" className="text-white hover:text-gray-200">Events</Link>
-                <Link to="/announcements" className="text-white hover:text-gray-200">Announcements</Link>
-              </>
-            )}
-            {isLoggedIn ? (
-              <Button 
-                variant="secondary" 
-                className="bg-secondary hover:bg-secondary/90"
-                onClick={handleLogout}
-              >
-                Logout
-              </Button>
-            ) : (
-              <Button 
-                variant="secondary" 
-                className="bg-secondary hover:bg-secondary/90"
-                onClick={() => navigate('/auth')}
-              >
-                <LogIn className="mr-2 h-4 w-4" /> Login
-              </Button>
-            )}
-          </div>
-
-          {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <Button
               variant="ghost"
@@ -120,16 +90,20 @@ const MainNav = () => {
                 >
                   Announcements
                 </Link>
+                <Link
+                  to="/profile"
+                  className="text-white block px-3 py-2 rounded-md hover:bg-primary/90"
+                >
+                  <User className="h-4 w-4" />
+                </Link>
+                <Button 
+                  variant="secondary" 
+                  className="w-full bg-secondary hover:bg-secondary/90"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
               </>
-            )}
-            {isLoggedIn ? (
-              <Button 
-                variant="secondary" 
-                className="w-full bg-secondary hover:bg-secondary/90"
-                onClick={handleLogout}
-              >
-                Logout
-              </Button>
             ) : (
               <Button 
                 variant="secondary" 
@@ -142,6 +116,35 @@ const MainNav = () => {
           </div>
         </div>
       )}
+
+      {/* Desktop Navigation */}
+      <div className="hidden md:flex items-center space-x-4">
+        <Link to="/" className="text-white hover:text-gray-200">Home</Link>
+        {isLoggedIn && (
+          <>
+            <Link to="/events" className="text-white hover:text-gray-200">Events</Link>
+            <Link to="/announcements" className="text-white hover:text-gray-200">Announcements</Link>
+            <Link to="/profile" className="text-white hover:text-gray-200">
+              <User className="h-4 w-4" />
+            </Link>
+            <Button 
+              variant="secondary" 
+              className="bg-secondary hover:bg-secondary/90"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          </>
+        ) : (
+          <Button 
+            variant="secondary" 
+            className="bg-secondary hover:bg-secondary/90"
+            onClick={() => navigate('/auth')}
+          >
+            <LogIn className="mr-2 h-4 w-4" /> Login
+          </Button>
+        )}
+      </div>
     </nav>
   );
 };

@@ -1,4 +1,3 @@
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
@@ -11,6 +10,7 @@ import Events from "./pages/Events";
 import Announcements from "./pages/Announcements";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Session } from "@supabase/supabase-js";
@@ -68,6 +68,11 @@ const App = () => {
                 <Route path="/announcements" element={
                   <PrivateRoute>
                     <Announcements />
+                  </PrivateRoute>
+                } />
+                <Route path="/profile" element={
+                  <PrivateRoute>
+                    <Profile />
                   </PrivateRoute>
                 } />
                 <Route path="/auth" element={<Auth />} />

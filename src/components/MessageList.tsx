@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from "@/integrations/supabase/client";
 import { format } from 'date-fns';
 import { toast } from "sonner";
+import { User } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -19,12 +20,16 @@ const MessageList: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch initial messages
     const fetchMessages = async () => {
       try {
         const { data, error } = await supabase
           .from('messages')
-          .select('*')
+          .select(`
+            *,
+            profiles:user_id (
+              username
+            )
+          `)
           .order('created_at', { ascending: true });
 
         if (error) throw error;
@@ -39,7 +44,6 @@ const MessageList: React.FC = () => {
 
     fetchMessages();
 
-    // Set up real-time subscription
     const channel = supabase
       .channel('messages')
       .on(
@@ -51,7 +55,6 @@ const MessageList: React.FC = () => {
       )
       .subscribe();
 
-    // Cleanup subscription
     return () => {
       supabase.removeChannel(channel);
     };
@@ -62,17 +65,20 @@ const MessageList: React.FC = () => {
   }
 
   return (
-    <div className="space-y-4 max-h-[400px] overflow-y-auto">
+    <div className="space-y-4 max-h-[400px] overflow-y-auto p-4">
       {messages.map((message) => (
         <div 
           key={message.id} 
-          className="bg-gray-100 p-3 rounded-lg"
+          className="bg-card p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
         >
-          <div className="font-semibold text-sm text-gray-600">
-            Anonymous Member
+          <div className="flex items-center gap-2 mb-2">
+            <User className="w-4 h-4 text-primary/60" />
+            <span className="font-medium text-primary">
+              {message.profiles?.username || "Anonymous Member"}
+            </span>
           </div>
-          <p>{message.content}</p>
-          <div className="text-xs text-gray-500 mt-1">
+          <p className="text-foreground/90">{message.content}</p>
+          <div className="text-xs text-muted-foreground mt-2">
             {format(new Date(message.created_at), 'HH:mm, dd MMM yyyy')}
           </div>
         </div>

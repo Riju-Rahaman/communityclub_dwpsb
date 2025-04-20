@@ -8,13 +8,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { User, Save, ArrowRight } from "lucide-react";
+import { User, Save, ArrowRight, Star } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import AdminImageUpload from "@/components/AdminImageUpload";
 
 interface Profile {
   username: string | null;
   avatar_url: string | null;
   bio: string | null;
+  role: 'admin' | 'member';
 }
 
 const Profile = () => {
@@ -24,36 +26,41 @@ const Profile = () => {
     username: null,
     avatar_url: null,
     bio: null,
+    role: 'member'
   });
   const [isEditing, setIsEditing] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    getProfile();
-  }, []);
+    const fetchProfile = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          navigate('/auth');
+          return;
+        }
 
-  const getProfile = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        navigate('/auth');
-        return;
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('username, avatar_url, bio, role')
+          .eq('id', user.id)
+          .single();
+
+        if (error) throw error;
+        if (data) {
+          setProfile(data);
+          setIsAdmin(data.role === 'admin');
+        }
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+        toast.error('Failed to load profile');
+      } finally {
+        setLoading(false);
       }
+    };
 
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('username, avatar_url, bio')
-        .eq('id', user.id)
-        .single();
-
-      if (error) throw error;
-      if (data) setProfile(data);
-    } catch (error) {
-      console.error('Error fetching profile:', error);
-      toast.error('Failed to load profile');
-    } finally {
-      setLoading(false);
-    }
-  };
+    fetchProfile();
+  }, [navigate]);
 
   const updateProfile = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -89,7 +96,12 @@ const Profile = () => {
     <div className="container max-w-2xl mx-auto py-8 px-4">
       <Card className="bg-card rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
         <CardHeader className="text-center space-y-2">
-          <CardTitle className="text-2xl font-bold animate-fade-in">Profile Settings</CardTitle>
+          <CardTitle className="text-2xl font-bold animate-fade-in flex items-center justify-center">
+            Profile Settings 
+            {isAdmin && (
+              <Star className="ml-2 text-yellow-500" title="Admin User" />
+            )}
+          </CardTitle>
           <div className="flex justify-center">
             <Avatar className="w-24 h-24 transition-transform duration-300 hover:scale-105">
               {profile.avatar_url ? (
@@ -160,6 +172,12 @@ const Profile = () => {
           </form>
         </CardContent>
       </Card>
+
+      {isAdmin && (
+        <div className="mt-8">
+          <AdminImageUpload />
+        </div>
+      )}
     </div>
   );
 };

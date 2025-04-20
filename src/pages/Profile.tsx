@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -11,25 +10,20 @@ import { toast } from "sonner";
 import { User, Save, ArrowRight, Star } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import AdminImageUpload from "@/components/AdminImageUpload";
-
-interface Profile {
-  username: string | null;
-  avatar_url: string | null;
-  bio: string | null;
-  role: 'admin' | 'member';
-}
+import type { Profile } from "@/types/profile";
 
 const Profile = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const [profile, setProfile] = useState<Profile>({
     username: null,
     avatar_url: null,
     bio: null,
     role: 'member'
   });
-  const [isEditing, setIsEditing] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -48,7 +42,7 @@ const Profile = () => {
 
         if (error) throw error;
         if (data) {
-          setProfile(data);
+          setProfile(data as Profile);
           setIsAdmin(data.role === 'admin');
         }
       } catch (error) {

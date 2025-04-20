@@ -21,6 +21,19 @@ const AdminImageUpload: React.FC = () => {
         return;
       }
 
+      const { error: profileError, data: profileData } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single();
+
+      if (profileError) throw profileError;
+      
+      if (profileData.role !== 'admin') {
+        toast.error('Only admins can upload images');
+        return;
+      }
+
       const { error } = await supabase
         .from('images')
         .insert({

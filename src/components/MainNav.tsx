@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -104,7 +105,8 @@ const MainNav = () => {
                   Logout
                 </Button>
               </>
-            ) : (
+            )}
+            {!isLoggedIn && (
               <Button 
                 variant="secondary" 
                 className="w-full bg-secondary hover:bg-secondary/90"
@@ -135,7 +137,8 @@ const MainNav = () => {
               Logout
             </Button>
           </>
-        ) : (
+        )}
+        {!isLoggedIn && (
           <Button 
             variant="secondary" 
             className="bg-secondary hover:bg-secondary/90"

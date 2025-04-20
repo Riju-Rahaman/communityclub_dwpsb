@@ -46,34 +46,37 @@ const MainNav = () => {
   };
 
   return (
-    <nav className="bg-primary shadow-lg">
+    <nav className="bg-gradient-to-r from-primary to-primary/80 backdrop-blur-sm shadow-lg transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="text-white text-xl font-bold">
-              DWPS Community Service Club
+            <Link to="/" className="text-white text-xl font-bold hover:text-white/80 transition-colors">
+              <span className="animate-text-glow">DWPS Community Service Club</span>
             </Link>
           </div>
 
           <div className="md:hidden flex items-center">
             <Button
               variant="ghost"
-              className="text-white"
+              className="text-white hover:bg-white/10 transition-colors"
               onClick={() => setIsOpen(!isOpen)}
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? 
+                <X className="h-6 w-6 animate-in fade-in duration-200" /> : 
+                <Menu className="h-6 w-6 animate-in fade-in duration-200" />
+              }
             </Button>
           </div>
         </div>
       </div>
 
       {/* Mobile Navigation */}
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-primary">
+      <div className={`md:hidden transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}>
+        {isOpen && (
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-primary/95 backdrop-blur-md">
             <Link
               to="/"
-              className="text-white block px-3 py-2 rounded-md hover:bg-primary/90"
+              className="text-white/90 block px-3 py-2 rounded-md hover:bg-white/10 transition-all duration-200"
             >
               Home
             </Link>
@@ -81,25 +84,25 @@ const MainNav = () => {
               <>
                 <Link
                   to="/events"
-                  className="text-white block px-3 py-2 rounded-md hover:bg-primary/90"
+                  className="text-white/90 block px-3 py-2 rounded-md hover:bg-white/10 transition-all duration-200"
                 >
                   Events
                 </Link>
                 <Link
                   to="/announcements"
-                  className="text-white block px-3 py-2 rounded-md hover:bg-primary/90"
+                  className="text-white/90 block px-3 py-2 rounded-md hover:bg-white/10 transition-all duration-200"
                 >
                   Announcements
                 </Link>
                 <Link
                   to="/profile"
-                  className="text-white block px-3 py-2 rounded-md hover:bg-primary/90"
+                  className="text-white/90 block px-3 py-2 rounded-md hover:bg-white/10 transition-all duration-200"
                 >
                   <User className="h-4 w-4" />
                 </Link>
                 <Button 
                   variant="secondary" 
-                  className="w-full bg-secondary hover:bg-secondary/90"
+                  className="w-full bg-secondary hover:bg-secondary/90 transition-colors duration-200"
                   onClick={handleLogout}
                 >
                   Logout
@@ -109,29 +112,29 @@ const MainNav = () => {
             {!isLoggedIn && (
               <Button 
                 variant="secondary" 
-                className="w-full bg-secondary hover:bg-secondary/90"
+                className="w-full bg-secondary hover:bg-secondary/90 transition-colors duration-200"
                 onClick={() => navigate('/auth')}
               >
                 <LogIn className="mr-2 h-4 w-4" /> Login
               </Button>
             )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Desktop Navigation */}
-      <div className="hidden md:flex items-center space-x-4">
-        <Link to="/" className="text-white hover:text-gray-200">Home</Link>
+      <div className="hidden md:flex items-center space-x-4 px-4 animate-fade-in">
+        <Link to="/" className="text-white/90 hover:text-white transition-colors duration-200">Home</Link>
         {isLoggedIn && (
           <>
-            <Link to="/events" className="text-white hover:text-gray-200">Events</Link>
-            <Link to="/announcements" className="text-white hover:text-gray-200">Announcements</Link>
-            <Link to="/profile" className="text-white hover:text-gray-200">
+            <Link to="/events" className="text-white/90 hover:text-white transition-colors duration-200">Events</Link>
+            <Link to="/announcements" className="text-white/90 hover:text-white transition-colors duration-200">Announcements</Link>
+            <Link to="/profile" className="text-white/90 hover:text-white transition-colors duration-200">
               <User className="h-4 w-4" />
             </Link>
             <Button 
               variant="secondary" 
-              className="bg-secondary hover:bg-secondary/90"
+              className="bg-secondary hover:bg-secondary/90 transition-all duration-200 hover:scale-105"
               onClick={handleLogout}
             >
               Logout
@@ -141,7 +144,7 @@ const MainNav = () => {
         {!isLoggedIn && (
           <Button 
             variant="secondary" 
-            className="bg-secondary hover:bg-secondary/90"
+            className="bg-secondary hover:bg-secondary/90 transition-all duration-200 hover:scale-105"
             onClick={() => navigate('/auth')}
           >
             <LogIn className="mr-2 h-4 w-4" /> Login

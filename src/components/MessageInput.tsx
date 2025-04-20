@@ -21,9 +21,20 @@ const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
 
     setIsSubmitting(true);
     try {
+      // Get the current user's ID
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast.error('You must be logged in to send messages');
+        return;
+      }
+
       const { error } = await supabase
         .from('messages')
-        .insert({ content: message });
+        .insert({ 
+          content: message,
+          user_id: user.id 
+        });
 
       if (error) {
         toast.error('Failed to send message', { description: error.message });

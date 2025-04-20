@@ -59,11 +59,7 @@ const App = () => {
               <Toaster />
               <Sonner />
               <Routes>
-                <Route path="/" element={
-                  <PrivateRoute>
-                    <Index />
-                  </PrivateRoute>
-                } />
+                <Route path="/" element={<Index />} />
                 <Route path="/events" element={
                   <PrivateRoute>
                     <Events />

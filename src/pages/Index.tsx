@@ -1,9 +1,12 @@
 
 import MainNav from "@/components/MainNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, TreePine, Handshake, Users, Calendar } from "lucide-react";
+import { Heart, TreePine, Handshake, Users } from "lucide-react";
 import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Session } from "@supabase/supabase-js";
 
 const activities = [
   {
@@ -29,6 +32,20 @@ const activities = [
 ];
 
 const Index = () => {
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <MainNav />
@@ -50,16 +67,18 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Group Chat Section */}
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center mb-8">Club Community Chat</h2>
-        <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6">
-          <MessageList />
-          <div className="mt-4">
-            <MessageInput />
+      {/* Group Chat Section - Only shown when logged in */}
+      {session && (
+        <div className="max-w-7xl mx-auto px-4 py-16">
+          <h2 className="text-3xl font-bold text-center mb-8">Club Community Chat</h2>
+          <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6">
+            <MessageList />
+            <div className="mt-4">
+              <MessageInput />
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Activities Section */}
       <div className="max-w-7xl mx-auto px-4 py-16">

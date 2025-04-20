@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, LogOut } from "lucide-react";
+import { Menu, X, LogIn } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -37,7 +37,7 @@ const MainNav = () => {
         toast.error('Logout failed', { description: error.message });
       } else {
         toast.success('Logged out successfully');
-        navigate('/auth');
+        navigate('/');
       }
     } catch (error) {
       console.error('Logout error:', error);
@@ -58,15 +58,19 @@ const MainNav = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
             <Link to="/" className="text-white hover:text-gray-200">Home</Link>
-            <Link to="/events" className="text-white hover:text-gray-200">Events</Link>
-            <Link to="/announcements" className="text-white hover:text-gray-200">Announcements</Link>
+            {isLoggedIn && (
+              <>
+                <Link to="/events" className="text-white hover:text-gray-200">Events</Link>
+                <Link to="/announcements" className="text-white hover:text-gray-200">Announcements</Link>
+              </>
+            )}
             {isLoggedIn ? (
               <Button 
                 variant="secondary" 
                 className="bg-secondary hover:bg-secondary/90"
                 onClick={handleLogout}
               >
-                <LogOut className="mr-2 h-4 w-4" /> Logout
+                Logout
               </Button>
             ) : (
               <Button 
@@ -74,7 +78,7 @@ const MainNav = () => {
                 className="bg-secondary hover:bg-secondary/90"
                 onClick={() => navigate('/auth')}
               >
-                Login
+                <LogIn className="mr-2 h-4 w-4" /> Login
               </Button>
             )}
           </div>
@@ -102,25 +106,29 @@ const MainNav = () => {
             >
               Home
             </Link>
-            <Link
-              to="/events"
-              className="text-white block px-3 py-2 rounded-md hover:bg-primary/90"
-            >
-              Events
-            </Link>
-            <Link
-              to="/announcements"
-              className="text-white block px-3 py-2 rounded-md hover:bg-primary/90"
-            >
-              Announcements
-            </Link>
+            {isLoggedIn && (
+              <>
+                <Link
+                  to="/events"
+                  className="text-white block px-3 py-2 rounded-md hover:bg-primary/90"
+                >
+                  Events
+                </Link>
+                <Link
+                  to="/announcements"
+                  className="text-white block px-3 py-2 rounded-md hover:bg-primary/90"
+                >
+                  Announcements
+                </Link>
+              </>
+            )}
             {isLoggedIn ? (
               <Button 
                 variant="secondary" 
                 className="w-full bg-secondary hover:bg-secondary/90"
                 onClick={handleLogout}
               >
-                <LogOut className="mr-2 h-4 w-4" /> Logout
+                Logout
               </Button>
             ) : (
               <Button 
@@ -128,7 +136,7 @@ const MainNav = () => {
                 className="w-full bg-secondary hover:bg-secondary/90"
                 onClick={() => navigate('/auth')}
               >
-                Login
+                <LogIn className="mr-2 h-4 w-4" /> Login
               </Button>
             )}
           </div>

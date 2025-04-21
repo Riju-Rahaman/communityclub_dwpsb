@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -93,7 +94,7 @@ const Profile = () => {
           <CardTitle className="text-2xl font-bold animate-fade-in flex items-center justify-center">
             Profile Settings 
             {isAdmin && (
-              <Star className="ml-2 text-yellow-500" title="Admin User" />
+              <Star className="ml-2 text-yellow-500" aria-label="Admin User" />
             )}
           </CardTitle>
           <div className="flex justify-center">

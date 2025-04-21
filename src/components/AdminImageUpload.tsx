@@ -6,6 +6,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Upload, Image as ImageIcon } from "lucide-react";
 
+// Define the image table structure to match what we created in the database
+interface ImageInsert {
+  url: string;
+  title: string;
+  uploaded_by: string;
+}
+
 const AdminImageUpload: React.FC = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [title, setTitle] = useState('');
@@ -34,13 +41,15 @@ const AdminImageUpload: React.FC = () => {
         return;
       }
 
+      // Use a type assertion to work around the type constraints
+      // This is necessary because the database schema in types.ts hasn't been updated
       const { error } = await supabase
-        .from('images')
+        .from('images' as any)
         .insert({
           url: imageUrl,
           title: title,
           uploaded_by: user.id
-        });
+        } as ImageInsert);
 
       if (error) throw error;
 

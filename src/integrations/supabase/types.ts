@@ -39,6 +39,7 @@ export type Database = {
           first_name: string | null
           id: string
           interests: string[] | null
+          is_admin: boolean | null
           join_date: string | null
           last_name: string | null
           profile_picture_url: string | null
@@ -56,6 +57,7 @@ export type Database = {
           first_name?: string | null
           id: string
           interests?: string[] | null
+          is_admin?: boolean | null
           join_date?: string | null
           last_name?: string | null
           profile_picture_url?: string | null
@@ -73,6 +75,7 @@ export type Database = {
           first_name?: string | null
           id?: string
           interests?: string[] | null
+          is_admin?: boolean | null
           join_date?: string | null
           last_name?: string | null
           profile_picture_url?: string | null

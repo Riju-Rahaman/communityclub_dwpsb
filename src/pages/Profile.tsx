@@ -35,16 +35,40 @@ const Profile = () => {
           return;
         }
 
+        // Check if profile exists
         const { data, error } = await supabase
           .from('profiles')
           .select('username, avatar_url, bio, role')
           .eq('id', user.id)
-          .single();
+          .maybeSingle(); // Changed from single() to maybeSingle()
 
-        if (error) throw error;
+        if (error && error.code !== 'PGRST116') throw error;
+        
         if (data) {
           setProfile(data as Profile);
           setIsAdmin(data.role === 'admin');
+        } else {
+          // If profile doesn't exist, create it
+          console.log("Profile not found, creating new profile");
+          const { error: insertError } = await supabase
+            .from('profiles')
+            .insert({
+              id: user.id,
+              username: user.email?.split('@')[0] || 'user',
+              avatar_url: null,
+              bio: null,
+              role: 'member'
+            });
+
+          if (insertError) throw insertError;
+          
+          // Set default profile values
+          setProfile({
+            username: user.email?.split('@')[0] || 'user',
+            avatar_url: null,
+            bio: null,
+            role: 'member'
+          });
         }
       } catch (error) {
         console.error('Error fetching profile:', error);

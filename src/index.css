@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -42,16 +41,16 @@
   }
 
   body {
-    @apply bg-background text-foreground text-center min-h-screen antialiased;
-    background: #10131A !important;
-    color: #fff !important;
+    @apply bg-background text-foreground min-h-screen antialiased;
+    background: none !important;
     text-align: center !important;
     min-height: 100vh;
+    margin: 0;
   }
 
   #root {
     @apply min-h-screen flex flex-col justify-center items-center text-center;
-    background: #10131A;
+    background: none;
     color: #fff;
   }
 
@@ -85,4 +84,11 @@
 ::-webkit-scrollbar {
   width: 0;
   background: transparent;
+}
+
+/* Cinematic gradient overlay utility */
+@layer utilities {
+  .cinematic-bg {
+    background: linear-gradient(135deg, rgba(22, 24, 43, 0.95) 0%, rgba(16, 19, 26, 0.85) 35%, rgba(43, 45, 68, 0.9) 100%);
+  }
 }

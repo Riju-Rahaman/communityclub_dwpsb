@@ -64,38 +64,41 @@ const Auth = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[calc(100vh-4rem)] bg-background">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
-        <h2 className="text-2xl font-bold text-center">
+    <div className="flex justify-center items-center min-h-[calc(100vh-4rem)] bg-gradient-to-br from-[#181728] via-[#10131A] to-[#232635] px-4">
+      <div className="w-full max-w-md p-8 space-y-6 bg-[#1C1F2D]/90 backdrop-blur-md rounded-xl shadow-lg border border-gray-700 text-center">
+        <h2 className="text-3xl font-extrabold text-white mb-6">
           {isLogin ? 'Login' : 'Sign Up'}
         </h2>
-        <form onSubmit={handleAuth} className="space-y-4">
-          <div>
+        <form onSubmit={handleAuth} className="space-y-6">
+          <div className="text-left">
             <Label>Email</Label>
             <Input 
               type="email" 
               value={email} 
               onChange={(e) => setEmail(e.target.value)}
               required 
+              className="bg-background/60 text-white placeholder:text-muted-foreground"
             />
           </div>
-          <div>
+          <div className="text-left">
             <Label>Password</Label>
             <Input 
               type="password" 
               value={password} 
               onChange={(e) => setPassword(e.target.value)}
               required 
+              className="bg-background/60 text-white placeholder:text-muted-foreground"
             />
           </div>
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
             {isLogin ? 'Login' : 'Create Account'}
           </Button>
         </form>
-        <div className="text-center">
+        <div>
           <Button 
             variant="link" 
             onClick={() => setIsLogin(!isLogin)}
+            className="text-accent underline hover:text-accent-foreground transition-colors"
           >
             {isLogin 
               ? 'Need an account? Sign Up' 

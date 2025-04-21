@@ -1,7 +1,8 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
+  darkMode: "class", // make sure dark mode uses class
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -19,38 +20,38 @@ export default {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        border: "#292c36",
+        input: "#232635",
+        ring: "#1A1F2C",
+        background: "#10131A", // Very dark background
+        foreground: "#FFFFFF", // White text
         primary: {
-          DEFAULT: "#1E40AF",
+          DEFAULT: "#181728",
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#F97316",
+          DEFAULT: "#35346c",
           foreground: "#FFFFFF",
         },
         accent: {
-          DEFAULT: "#10B981",
-          foreground: "#FFFFFF",
+          DEFAULT: "#D6BCFA",
+          foreground: "#1A1F2C",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "#e3342f",
+          foreground: "#FFF",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "#22223b",
+          foreground: "#8E9196",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "#232635",
+          foreground: "#FFFFFF"
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "#16182b",
+          foreground: "#FFFFFF"
         },
       },
       borderRadius: {
@@ -73,15 +74,19 @@ export default {
         },
         "text-glow": {
           "0%, 100%": {
-            textShadow: "0 0 4px rgba(255,255,255,0.1)",
+            textShadow: "0 0 8px #D6BCFA,0 0 4px #FFF",
           },
           "50%": {
-            textShadow: "0 0 16px rgba(255,255,255,0.3)",
+            textShadow: "0 0 24px #D6BCFA,0 0 16px #FFF",
           },
         },
         "spin-slow": {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
+        },
+        "fade-in": {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 }
         },
       },
       animation: {
@@ -96,3 +101,4 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+

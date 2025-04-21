@@ -9,6 +9,30 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      images: {
+        Row: {
+          created_at: string
+          id: string
+          title: string
+          uploaded_by: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          title: string
+          uploaded_by: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          title?: string
+          uploaded_by?: string
+          url?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           content: string
@@ -115,6 +139,10 @@ export type Database = {
       citextsend: {
         Args: { "": string }
         Returns: string
+      }
+      insert_image: {
+        Args: { image_url: string; image_title: string; uploader_id: string }
+        Returns: undefined
       }
     }
     Enums: {

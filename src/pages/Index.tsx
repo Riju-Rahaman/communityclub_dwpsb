@@ -47,31 +47,28 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#181728] via-[#10131A] to-[#232635] flex flex-col items-center text-center transition-colors duration-500">
       <MainNav />
-      
       {/* Hero Section */}
-      <div className="bg-primary text-white py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold mb-4">
+      <div className="w-full py-20 px-4 flex flex-col items-center glass-morphism rounded-none">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-5xl sm:text-6xl font-extrabold mb-6 text-gradient-primary animate-text-glow drop-shadow-lg">
             Community Service Club
           </h1>
-          <p className="text-xl mb-8">
+          <p className="text-2xl mb-4 text-accent font-semibold tracking-wide animate-fade-in">
             Delhi World Public School, Barasat
           </p>
-          <p className="text-lg max-w-2xl">
-            Empowering students to make a difference through compassion,
-            responsibility, and active citizenship in our school and local
-            communities.
+          <p className="text-lg max-w-2xl mx-auto text-foreground/80">
+            Empowering students to make a difference through compassion, responsibility, and active citizenship in our school and local communities.
           </p>
         </div>
       </div>
 
       {/* Group Chat Section - Only shown when logged in */}
       {session && (
-        <div className="max-w-7xl mx-auto px-4 py-16">
-          <h2 className="text-3xl font-bold text-center mb-8">Club Community Chat</h2>
-          <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <div className="w-full py-16 flex flex-col items-center text-center">
+          <h2 className="text-3xl font-bold mb-8 text-gradient-primary animate-fade-in">Club Community Chat</h2>
+          <div className="max-w-2xl w-full mx-auto glass-morphism bg-[#181728]/70 shadow-xl rounded-xl p-6">
             <MessageList />
             <div className="mt-4">
               <MessageInput />
@@ -81,19 +78,22 @@ const Index = () => {
       )}
 
       {/* Activities Section */}
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center mb-12">Our Activities</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="w-full py-16">
+        <h2 className="text-3xl font-bold mb-12 text-gradient-primary animate-fade-in">Our Activities</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
           {activities.map((activity) => (
-            <Card key={activity.title} className="hover:shadow-lg transition-shadow">
+            <Card
+              key={activity.title}
+              className="glass-morphism bg-[#232635]/50 hover:scale-105 hover:shadow-2xl transition-all text-center mx-auto"
+            >
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <activity.icon className="h-6 w-6 text-secondary" />
-                  {activity.title}
+                <CardTitle className="flex flex-col items-center gap-2 text-center">
+                  <activity.icon className="h-8 w-8 text-accent mb-1" />
+                  <span className="text-xl font-bold">{activity.title}</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">{activity.description}</p>
+                <p className="text-foreground/70">{activity.description}</p>
               </CardContent>
             </Card>
           ))}
@@ -104,3 +104,4 @@ const Index = () => {
 };
 
 export default Index;
+

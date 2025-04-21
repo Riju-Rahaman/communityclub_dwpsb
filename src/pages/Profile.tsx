@@ -89,21 +89,21 @@ const Profile = () => {
 
   return (
     <div className="container max-w-2xl mx-auto py-8 px-4">
-      <Card className="bg-card rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
+      <Card className="bg-background/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl">
         <CardHeader className="text-center space-y-2">
-          <CardTitle className="text-2xl font-bold animate-fade-in flex items-center justify-center">
+          <CardTitle className="text-2xl font-bold animate-fade-in flex items-center justify-center text-foreground dark:text-white">
             Profile Settings 
             {isAdmin && (
               <Star className="ml-2 text-yellow-500" aria-label="Admin User" />
             )}
           </CardTitle>
           <div className="flex justify-center">
-            <Avatar className="w-24 h-24 transition-transform duration-300 hover:scale-105">
+            <Avatar className="w-24 h-24 transition-transform duration-300 hover:scale-105 ring-2 ring-primary/20 dark:ring-blue-500/30">
               {profile.avatar_url ? (
                 <AvatarImage src={profile.avatar_url} />
               ) : (
-                <AvatarFallback className="bg-primary/10">
-                  <User className="w-12 h-12 text-primary/80" />
+                <AvatarFallback className="bg-primary/10 dark:bg-blue-900/30">
+                  <User className="w-12 h-12 text-primary/80 dark:text-blue-400" />
                 </AvatarFallback>
               )}
             </Avatar>
@@ -112,7 +112,7 @@ const Profile = () => {
         <CardContent>
           <form onSubmit={updateProfile} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="username" className="text-lg font-medium">
+              <Label htmlFor="username" className="text-lg font-medium text-foreground dark:text-gray-200">
                 Username
               </Label>
               <Input
@@ -121,12 +121,12 @@ const Profile = () => {
                 value={profile.username || ''}
                 onChange={(e) => setProfile({ ...profile, username: e.target.value })}
                 disabled={loading}
-                className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                className="transition-all duration-200 focus:ring-2 focus:ring-primary dark:bg-gray-700/50 bg-background/30"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="bio" className="text-lg font-medium">
+              <Label htmlFor="bio" className="text-lg font-medium text-foreground dark:text-gray-200">
                 Bio
               </Label>
               <Textarea
@@ -134,7 +134,7 @@ const Profile = () => {
                 value={profile.bio || ''}
                 onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
                 disabled={loading}
-                className="min-h-[100px] transition-all duration-200 focus:ring-2 focus:ring-primary"
+                className="min-h-[100px] transition-all duration-200 focus:ring-2 focus:ring-primary dark:bg-gray-700/50 bg-background/30"
                 placeholder="Tell us about yourself..."
               />
             </div>
@@ -142,7 +142,7 @@ const Profile = () => {
             <div className="flex gap-4 justify-end pt-4">
               <Button 
                 type="submit"
-                className="bg-primary hover:bg-primary/90 text-white transition-all duration-300 hover:scale-105"
+                className="bg-primary/80 hover:bg-primary dark:bg-blue-600/80 dark:hover:bg-blue-500 text-white transition-all duration-300 hover:scale-105 backdrop-blur-sm"
                 disabled={loading}
               >
                 {loading ? (
@@ -158,7 +158,7 @@ const Profile = () => {
                 type="button"
                 variant="secondary"
                 onClick={() => navigate('/')}
-                className="transition-all duration-300 hover:scale-105"
+                className="transition-all duration-300 hover:scale-105 dark:bg-gray-700/50 backdrop-blur-sm"
               >
                 <ArrowRight className="mr-2 h-4 w-4" />
                 Go to Messages

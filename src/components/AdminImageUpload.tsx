@@ -41,15 +41,13 @@ const AdminImageUpload: React.FC = () => {
         return;
       }
 
-      // Use a type assertion to work around the type constraints
-      // This is necessary because the database schema in types.ts hasn't been updated
+      // Use direct SQL query via the rpc function to avoid type issues
       const { error } = await supabase
-        .from('images' as any)
-        .insert({
-          url: imageUrl,
-          title: title,
-          uploaded_by: user.id
-        } as ImageInsert);
+        .rpc('insert_image', {
+          image_url: imageUrl,
+          image_title: title,
+          uploader_id: user.id
+        });
 
       if (error) throw error;
 
@@ -63,13 +61,13 @@ const AdminImageUpload: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 flex items-center">
+    <div className="max-w-md mx-auto p-6 bg-background/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg shadow-xl border border-gray-200 dark:border-gray-700">
+      <h2 className="text-2xl font-bold mb-4 flex items-center text-foreground dark:text-white">
         <ImageIcon className="mr-2" /> Admin Image Upload
       </h2>
       <form onSubmit={handleUpload} className="space-y-4">
         <div>
-          <label htmlFor="imageUrl" className="block mb-2">Image URL</label>
+          <label htmlFor="imageUrl" className="block mb-2 text-foreground dark:text-gray-200">Image URL</label>
           <Input 
             id="imageUrl"
             type="text" 
@@ -77,19 +75,21 @@ const AdminImageUpload: React.FC = () => {
             onChange={(e) => setImageUrl(e.target.value)}
             placeholder="Enter image URL"
             required
+            className="bg-background/30 dark:bg-gray-700/50"
           />
         </div>
         <div>
-          <label htmlFor="title" className="block mb-2">Image Title</label>
+          <label htmlFor="title" className="block mb-2 text-foreground dark:text-gray-200">Image Title</label>
           <Input 
             id="title"
             type="text" 
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter image title"
+            className="bg-background/30 dark:bg-gray-700/50"
           />
         </div>
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full bg-primary/80 hover:bg-primary dark:bg-blue-600/80 dark:hover:bg-blue-500 backdrop-blur-sm">
           <Upload className="mr-2" /> Upload Image
         </Button>
       </form>

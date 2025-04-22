@@ -29,50 +29,78 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
+        setLoading(true);
+        
+        // First check if user is authenticated
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+        
+        if (authError) {
+          throw authError;
+        }
+        
         if (!user) {
+          console.log("No authenticated user found, redirecting to auth");
           navigate('/auth');
           return;
         }
+
+        console.log("Authenticated user found:", user.id);
 
         // Check if profile exists
         const { data, error } = await supabase
           .from('profiles')
           .select('username, avatar_url, bio, role')
           .eq('id', user.id)
-          .maybeSingle(); // Changed from single() to maybeSingle()
+          .maybeSingle();
 
-        if (error && error.code !== 'PGRST116') throw error;
+        if (error) {
+          console.error("Error fetching profile:", error);
+          throw error;
+        }
         
         if (data) {
+          console.log("Profile found:", data);
           setProfile(data as Profile);
           setIsAdmin(data.role === 'admin');
         } else {
-          // If profile doesn't exist, create it
-          console.log("Profile not found, creating new profile");
+          console.log("Profile not found, creating new profile for user:", user.id);
+          
+          // Default username from email or a fallback
+          const defaultUsername = user.email ? user.email.split('@')[0] : 'user';
+          
+          // Create profile if it doesn't exist
           const { error: insertError } = await supabase
             .from('profiles')
             .insert({
               id: user.id,
-              username: user.email?.split('@')[0] || 'user',
+              username: defaultUsername,
               avatar_url: null,
               bio: null,
               role: 'member'
             });
 
-          if (insertError) throw insertError;
+          if (insertError) {
+            console.error("Error creating profile:", insertError);
+            throw insertError;
+          }
           
-          // Set default profile values
+          // Set default profile values after successful creation
           setProfile({
-            username: user.email?.split('@')[0] || 'user',
+            username: defaultUsername,
             avatar_url: null,
             bio: null,
             role: 'member'
           });
         }
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-        toast.error('Failed to load profile');
+      } catch (error: any) {
+        console.error('Error in profile loading process:', error);
+        toast.error('Failed to load profile', { 
+          description: error.message || 'Please try again or contact support'
+        });
+        // Redirect to auth page if there's an authentication issue
+        if (error.code === 'PGRST404' || error.code?.includes('auth')) {
+          navigate('/auth');
+        }
       } finally {
         setLoading(false);
       }
@@ -86,8 +114,18 @@ const Profile = () => {
     setLoading(true);
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('No user logged in');
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      
+      if (userError || !user) {
+        toast.error('Authentication error', { 
+          description: 'Please log in again to update your profile'
+        });
+        navigate('/auth');
+        return;
+      }
+
+      console.log("Updating profile for user:", user.id);
+      console.log("Profile data to update:", { username: profile.username, bio: profile.bio });
 
       const { error } = await supabase
         .from('profiles')
@@ -98,18 +136,35 @@ const Profile = () => {
         })
         .eq('id', user.id);
 
-      if (error) throw error;
+      if (error) {
+        console.error("Error updating profile:", error);
+        throw error;
+      }
       
       toast.success('Profile updated successfully');
-      navigate('/'); // Redirect to home/message page after saving
-    } catch (error) {
+      setTimeout(() => navigate('/'), 1500); // Give toast time to show
+    } catch (error: any) {
       console.error('Error updating profile:', error);
-      toast.error('Error updating profile');
+      toast.error('Error updating profile', { 
+        description: error.message || 'Please try again' 
+      });
     } finally {
       setLoading(false);
       setIsEditing(false);
     }
   };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="container max-w-2xl mx-auto py-8 px-4 flex justify-center items-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-foreground">Loading profile...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container max-w-2xl mx-auto py-8 px-4">

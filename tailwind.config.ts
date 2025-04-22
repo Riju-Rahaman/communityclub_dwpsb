@@ -1,8 +1,7 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: "class", // make sure dark mode uses class
+  darkMode: "class",
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -20,44 +19,40 @@ export default {
     },
     extend: {
       colors: {
-        border: "#292c36",
-        input: "#232635",
-        ring: "#1A1F2C",
-        background: "#10131A", // Very dark background
-        foreground: "#FFFFFF", // White text
+        background: "#10131A",
+        foreground: "#FFFFFF",
         primary: {
           DEFAULT: "#181728",
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#35346c",
-          foreground: "#FFFFFF",
-        },
-        accent: {
-          DEFAULT: "#D6BCFA",
-          foreground: "#1A1F2C",
-        },
-        destructive: {
-          DEFAULT: "#e3342f",
-          foreground: "#FFF",
-        },
-        muted: {
           DEFAULT: "#22223b",
-          foreground: "#8E9196",
-        },
-        popover: {
-          DEFAULT: "#232635",
-          foreground: "#FFFFFF"
+          foreground: "#FFFFFF",
         },
         card: {
           DEFAULT: "#16182b",
-          foreground: "#FFFFFF"
+          foreground: "#FFFFFF",
         },
+        popover: {
+          DEFAULT: "#232635",
+          foreground: "#FFFFFF",
+        },
+        muted: {
+          DEFAULT: "#1A1F2C",
+          foreground: "#8E9196",
+        },
+        accent: {
+          DEFAULT: "#D6BCFA",
+          foreground: "#232635",
+        },
+        border: "#292c36",
+        input: "#232635",
+        ring: "#1A1F2C",
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "0.75rem",
+        md: "calc(0.75rem - 2px)",
+        sm: "calc(0.75rem - 4px)",
       },
       keyframes: {
         "accordion-down": {
@@ -101,4 +96,3 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
-

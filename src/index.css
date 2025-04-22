@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,32 +7,23 @@
   :root {
     --background: #10131A;
     --foreground: #FFFFFF;
-
     --card: #16182b;
     --card-foreground: #FFFFFF;
-
     --popover: #232635;
     --popover-foreground: #FFFFFF;
-
     --primary: #181728;
     --primary-foreground: #FFFFFF;
-
-    --secondary: #35346c;
+    --secondary: #22223b;
     --secondary-foreground: #FFFFFF;
-
     --muted: #1A1F2C;
     --muted-foreground: #8E9196;
-
     --accent: #D6BCFA;
     --accent-foreground: #232635;
-
     --destructive: #e3342f;
     --destructive-foreground: #FFF;
-
     --border: #292c36;
     --input: #232635;
     --ring: #1A1F2C;
-
     --radius: 0.6rem;
   }
 
@@ -61,34 +53,16 @@
   }
 }
 
-/* Make all cards and inputs dark themed by default */
 @layer components {
   .card, .bg-card, .bg-popover, .bg-secondary, .bg-primary {
     background-color: #181728 !important;
     color: #fff !important;
     border-radius: 0.75rem;
   }
-  .shadow-lg, .shadow-md, .shadow-sm {
-    box-shadow: 0 2px 24px 0 rgba(0,0,0,0.85), 0 1.5px 8px 0 rgba(80,80,120,0.09);
-  }
 }
 
-/* Glassmorphism effect for backgrounds */
 @layer utilities {
   .glass-morphism {
-    @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)];
-  }
-}
-
-/* Hide scrollbars for extra slick dark mode look */
-::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
-}
-
-/* Cinematic gradient overlay utility */
-@layer utilities {
-  .cinematic-bg {
-    background: linear-gradient(135deg, rgba(22, 24, 43, 0.95) 0%, rgba(16, 19, 26, 0.85) 35%, rgba(43, 45, 68, 0.9) 100%);
+    @apply backdrop-blur-xl bg-black/5 border border-white/10 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)];
   }
 }

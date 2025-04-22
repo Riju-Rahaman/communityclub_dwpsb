@@ -47,18 +47,18 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#181728] via-[#10131A] to-[#232635] flex flex-col items-center text-center transition-colors duration-500">
+    <div className="min-h-screen flex flex-col items-center text-center transition-colors duration-500">
       <MainNav />
       {/* Hero Section */}
       <div className="w-full py-20 px-4 flex flex-col items-center glass-morphism rounded-none">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl sm:text-6xl font-extrabold mb-6 text-gradient-primary animate-text-glow drop-shadow-lg">
+          <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-gradient-primary animate-text-glow text-shadow-md">
             Community Service Club
           </h1>
-          <p className="text-2xl mb-4 text-accent font-semibold tracking-wide animate-fade-in">
+          <p className="text-2xl mb-4 text-accent font-medium tracking-wide animate-fade-in">
             Delhi World Public School, Barasat
           </p>
-          <p className="text-lg max-w-2xl mx-auto text-foreground/80">
+          <p className="text-lg max-w-2xl mx-auto text-foreground/90 font-light">
             Empowering students to make a difference through compassion, responsibility, and active citizenship in our school and local communities.
           </p>
         </div>
@@ -67,10 +67,10 @@ const Index = () => {
       {/* Group Chat Section - Only shown when logged in */}
       {session && (
         <div className="w-full py-16 flex flex-col items-center text-center">
-          <h2 className="text-3xl font-bold mb-8 text-gradient-primary animate-fade-in">Club Community Chat</h2>
-          <div className="max-w-2xl w-full mx-auto glass-morphism bg-[#181728]/70 shadow-xl rounded-xl p-6">
+          <h2 className="text-3xl font-bold mb-8 text-foreground animate-fade-in text-shadow-sm">Club Community Chat</h2>
+          <div className="max-w-2xl w-full mx-auto glass-card rounded-xl p-6">
             <MessageList />
-            <div className="mt-4">
+            <div className="mt-6">
               <MessageInput />
             </div>
           </div>
@@ -79,12 +79,12 @@ const Index = () => {
 
       {/* Activities Section */}
       <div className="w-full py-16">
-        <h2 className="text-3xl font-bold mb-12 text-gradient-primary animate-fade-in">Our Activities</h2>
+        <h2 className="text-3xl font-bold mb-12 text-foreground animate-fade-in text-shadow-sm">Our Activities</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
           {activities.map((activity) => (
             <Card
               key={activity.title}
-              className="glass-morphism bg-[#232635]/50 hover:scale-105 hover:shadow-2xl transition-all text-center mx-auto"
+              className="glass-card hover-scale hover-glow mx-auto"
             >
               <CardHeader>
                 <CardTitle className="flex flex-col items-center gap-2 text-center">
@@ -93,7 +93,7 @@ const Index = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-foreground/70">{activity.description}</p>
+                <p className="text-foreground/80 font-light">{activity.description}</p>
               </CardContent>
             </Card>
           ))}
@@ -104,4 +104,3 @@ const Index = () => {
 };
 
 export default Index;
-

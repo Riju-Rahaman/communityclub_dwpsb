@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Send, Eraser } from 'lucide-react';
+import { Send, Trash2 } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -77,19 +77,19 @@ const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       <form onSubmit={handleSendMessage} className="flex space-x-2">
         <Input 
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type a message..."
-          className="flex-grow bg-card"
+          className="flex-grow bg-input backdrop-blur-sm border-white/10 rounded-xl focus:border-accent/50 focus:ring-accent/30 text-foreground"
         />
         <Button 
           type="submit" 
           disabled={isSubmitting || !message.trim()}
           variant="secondary"
-          className="bg-accent hover:bg-accent/80 text-accent-foreground"
+          className="bg-secondary hover:bg-secondary/80 text-secondary-foreground rounded-xl transition-all duration-300 hover:shadow-lg"
         >
           <Send className="h-4 w-4" />
         </Button>
@@ -97,9 +97,9 @@ const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
       <Button
         onClick={handleClearMessages}
         variant="outline"
-        className="w-full text-sm text-muted-foreground hover:text-destructive"
+        className="w-full text-sm text-muted-foreground hover:text-destructive border border-white/10 bg-transparent hover:bg-destructive/10 rounded-xl transition-all duration-300"
       >
-        <Eraser className="h-4 w-4 mr-2" />
+        <Trash2 className="h-4 w-4 mr-2" />
         Clear My Messages
       </Button>
     </div>

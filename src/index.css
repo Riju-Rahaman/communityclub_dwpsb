@@ -1,68 +1,128 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: #10131A;
-    --foreground: #FFFFFF;
-    --card: #16182b;
-    --card-foreground: #FFFFFF;
-    --popover: #232635;
-    --popover-foreground: #FFFFFF;
-    --primary: #181728;
-    --primary-foreground: #FFFFFF;
-    --secondary: #22223b;
-    --secondary-foreground: #FFFFFF;
-    --muted: #1A1F2C;
-    --muted-foreground: #8E9196;
-    --accent: #D6BCFA;
-    --accent-foreground: #232635;
-    --destructive: #e3342f;
-    --destructive-foreground: #FFF;
-    --border: #292c36;
-    --input: #232635;
-    --ring: #1A1F2C;
-    --radius: 0.6rem;
+    --background: #0f172a;
+    --foreground: #f8fafc;
+    --card: rgba(30, 41, 59, 0.7);
+    --card-foreground: #f8fafc;
+    --popover: rgba(30, 41, 59, 0.8);
+    --popover-foreground: #f8fafc;
+    --primary: #0f172a;
+    --primary-foreground: #f8fafc;
+    --secondary: #a78bfa;
+    --secondary-foreground: #f8fafc;
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+    --accent: #38bdf8;
+    --accent-foreground: #0f172a;
+    --destructive: #ef4444;
+    --destructive-foreground: #f8fafc;
+    --border: rgba(148, 163, 184, 0.2);
+    --input: rgba(30, 41, 59, 0.5);
+    --ring: #38bdf8;
+    --radius: 0.75rem;
   }
 
   html {
-    background: #10131A;
-    color: #fff;
+    background: linear-gradient(to bottom, #0f172a, #1e293b) fixed;
+    color: #f8fafc;
+    height: 100%;
   }
 
   body {
-    @apply bg-background text-foreground min-h-screen antialiased;
-    background: none !important;
-    text-align: center !important;
-    min-height: 100vh;
+    @apply bg-transparent text-foreground min-h-screen antialiased font-sans tracking-wide;
     margin: 0;
+    letter-spacing: 0.015em;
+    font-weight: 300;
   }
 
   #root {
-    @apply min-h-screen flex flex-col justify-center items-center text-center;
-    background: none;
-    color: #fff;
+    @apply min-h-screen flex flex-col;
+    background: transparent;
+    color: #f8fafc;
   }
 
   * {
-    @apply border-border selection:bg-white/10 selection:text-white;
-    text-align: center !important;
+    @apply border-border;
     box-sizing: border-box;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-poppins font-semibold;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
 }
 
 @layer components {
-  .card, .bg-card, .bg-popover, .bg-secondary, .bg-primary {
-    background-color: #181728 !important;
-    color: #fff !important;
-    border-radius: 0.75rem;
+  .glass-card {
+    @apply backdrop-blur-lg bg-card/70 border border-white/10 shadow-lg;
+    border-radius: var(--radius);
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-[1.03];
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+  
+  .hover-glow:hover {
+    @apply border-accent/50;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+  }
+  
+  .nav-link {
+    @apply relative font-medium tracking-wide;
+  }
+  
+  .nav-link::after {
+    @apply content-[''] absolute w-full scale-x-0 h-0.5 bottom-0 left-0 bg-accent origin-bottom-right transition-transform duration-300;
+  }
+  
+  .nav-link:hover::after {
+    @apply scale-x-100 origin-bottom-left;
+  }
+  
+  .message-bubble {
+    @apply rounded-xl bg-card/80 backdrop-blur-sm shadow-sm border border-white/5 p-4;
+  }
+  
+  .timestamp {
+    @apply text-xs text-muted-foreground/60 transition-opacity duration-300;
+    opacity: 0.5;
+  }
+  
+  .message-bubble:hover .timestamp {
+    opacity: 1;
   }
 }
 
 @layer utilities {
   .glass-morphism {
     @apply backdrop-blur-xl bg-black/5 border border-white/10 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)];
+  }
+  
+  .text-shadow-sm {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .text-shadow-md {
+    text-shadow: 0 4px 8px rgba(0,0,0,0.12);
+  }
+  
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 }

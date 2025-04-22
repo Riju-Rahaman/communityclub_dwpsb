@@ -86,28 +86,41 @@ const MessageList: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <div className="text-center py-4 text-muted-foreground">Loading messages...</div>;
+    return (
+      <div className="text-center py-8 text-muted-foreground animate-pulse">
+        <div className="inline-block rounded-full h-6 w-6 bg-muted-foreground/20 animate-spin-slow mr-2"></div>
+        Loading messages...
+      </div>
+    );
   }
 
   return (
     <div className="space-y-4 max-h-[400px] overflow-y-auto p-4 scrollbar-none">
-      {messages.map((message) => (
-        <div 
-          key={message.id} 
-          className="bg-card/50 p-4 rounded-lg transition-all duration-300 hover:bg-card/70 group"
-        >
-          <div className="flex items-center gap-2 mb-2">
-            <User className="w-4 h-4 text-accent/80" />
-            <span className="font-medium text-accent hover:text-accent/80 transition-colors duration-300">
-              {message.username}
-            </span>
-          </div>
-          <p className="text-foreground/90">{message.content}</p>
-          <div className="text-xs text-muted-foreground mt-2 opacity-60 group-hover:opacity-100 transition-all duration-300">
-            {format(new Date(message.created_at), 'HH:mm, dd MMM yyyy')}
-          </div>
+      {messages.length === 0 ? (
+        <div className="text-center py-8 text-muted-foreground">
+          No messages yet. Be the first to send one!
         </div>
-      ))}
+      ) : (
+        messages.map((message) => (
+          <div 
+            key={message.id} 
+            className="message-bubble transition-all duration-300 hover-scale group"
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <div className="bg-secondary/20 rounded-full p-1">
+                <User className="w-3.5 h-3.5 text-secondary" />
+              </div>
+              <span className="font-medium text-accent hover:text-accent/80 transition-colors duration-300">
+                {message.username}
+              </span>
+            </div>
+            <p className="text-foreground/90 font-light tracking-wide">{message.content}</p>
+            <div className="timestamp text-right mt-2">
+              {format(new Date(message.created_at), 'HH:mm, dd MMM yyyy')}
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 };

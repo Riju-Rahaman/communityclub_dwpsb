@@ -10,7 +10,7 @@ interface Message {
   content: string;
   created_at: string;
   user_id: string;
-  username?: string; // Changed from nested profiles object
+  username?: string;
 }
 
 const MessageList: React.FC = () => {
@@ -20,7 +20,6 @@ const MessageList: React.FC = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        // First fetch messages
         const { data: messagesData, error: messagesError } = await supabase
           .from('messages')
           .select('*')
@@ -28,9 +27,7 @@ const MessageList: React.FC = () => {
 
         if (messagesError) throw messagesError;
         
-        // Then fetch profiles separately and join them in memory
         const messagesWithUsernames = await Promise.all((messagesData || []).map(async (message) => {
-          // Get the profile for this message's user_id
           const { data: profileData } = await supabase
             .from('profiles')
             .select('username')
@@ -58,21 +55,27 @@ const MessageList: React.FC = () => {
       .channel('messages')
       .on(
         'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'messages' },
+        { event: '*', schema: 'public', table: 'messages' },
         async (payload) => {
-          // When a new message is received, get its username
-          const { data: profileData } = await supabase
-            .from('profiles')
-            .select('username')
-            .eq('id', payload.new.user_id)
-            .single();
-            
-          const newMessage = {
-            ...payload.new as Message,
-            username: profileData?.username || "Anonymous Member"
-          };
+          if (payload.eventType === 'DELETE') {
+            setMessages(prev => prev.filter(msg => msg.user_id !== payload.old.user_id));
+            return;
+          }
           
-          setMessages((prevMessages) => [...prevMessages, newMessage]);
+          if (payload.eventType === 'INSERT') {
+            const { data: profileData } = await supabase
+              .from('profiles')
+              .select('username')
+              .eq('id', payload.new.user_id)
+              .single();
+              
+            const newMessage = {
+              ...payload.new as Message,
+              username: profileData?.username || "Anonymous Member"
+            };
+            
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
+          }
         }
       )
       .subscribe();
@@ -83,28 +86,25 @@ const MessageList: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <div className="text-center py-4">Loading messages...</div>;
+    return <div className="text-center py-4 text-muted-foreground">Loading messages...</div>;
   }
 
   return (
-    <div className="space-y-4 max-h-[400px] overflow-y-auto p-4 transition-all duration-300">
+    <div className="space-y-4 max-h-[400px] overflow-y-auto p-4 scrollbar-none">
       {messages.map((message) => (
         <div 
           key={message.id} 
-          className="bg-card p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-101 relative overflow-hidden"
+          className="bg-card/50 p-4 rounded-lg transition-all duration-300 hover:bg-card/70 group"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 opacity-50 rounded-lg"></div>
-          <div className="relative z-10">
-            <div className="flex items-center gap-2 mb-2">
-              <User className="w-4 h-4 text-primary/80" />
-              <span className="font-medium text-primary/90 hover:text-primary transition-colors duration-300">
-                {message.username || "Anonymous Member"}
-              </span>
-            </div>
-            <p className="text-foreground/90 transition-all duration-300">{message.content}</p>
-            <div className="text-xs text-muted-foreground mt-2 transition-all duration-300">
-              {format(new Date(message.created_at), 'HH:mm, dd MMM yyyy')}
-            </div>
+          <div className="flex items-center gap-2 mb-2">
+            <User className="w-4 h-4 text-accent/80" />
+            <span className="font-medium text-accent hover:text-accent/80 transition-colors duration-300">
+              {message.username}
+            </span>
+          </div>
+          <p className="text-foreground/90">{message.content}</p>
+          <div className="text-xs text-muted-foreground mt-2 opacity-60 group-hover:opacity-100 transition-all duration-300">
+            {format(new Date(message.created_at), 'HH:mm, dd MMM yyyy')}
           </div>
         </div>
       ))}

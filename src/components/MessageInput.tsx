@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Send } from 'lucide-react';
+import { Send, Eraser } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -21,7 +21,6 @@ const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
 
     setIsSubmitting(true);
     try {
-      // Get the current user's ID
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
@@ -37,7 +36,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
         });
 
       if (error) {
-        toast.error('Failed to send message', { description: error.message });
+        toast.error('Failed to send message');
       } else {
         setMessage('');
         onMessageSent?.();
@@ -51,21 +50,59 @@ const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
     }
   };
 
+  const handleClearMessages = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast.error('You must be logged in to clear messages');
+        return;
+      }
+
+      const { error } = await supabase
+        .from('messages')
+        .delete()
+        .eq('user_id', user.id);
+
+      if (error) {
+        toast.error('Failed to clear messages');
+      } else {
+        toast.success('Messages cleared');
+        onMessageSent?.();
+      }
+    } catch (error) {
+      console.error('Error clearing messages:', error);
+      toast.error('An unexpected error occurred');
+    }
+  };
+
   return (
-    <form onSubmit={handleSendMessage} className="flex space-x-2">
-      <Input 
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Type a message..."
-        className="flex-grow"
-      />
-      <Button 
-        type="submit" 
-        disabled={isSubmitting || !message.trim()}
+    <div className="space-y-2">
+      <form onSubmit={handleSendMessage} className="flex space-x-2">
+        <Input 
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Type a message..."
+          className="flex-grow bg-card"
+        />
+        <Button 
+          type="submit" 
+          disabled={isSubmitting || !message.trim()}
+          variant="secondary"
+          className="bg-accent hover:bg-accent/80 text-accent-foreground"
+        >
+          <Send className="h-4 w-4" />
+        </Button>
+      </form>
+      <Button
+        onClick={handleClearMessages}
+        variant="outline"
+        className="w-full text-sm text-muted-foreground hover:text-destructive"
       >
-        <Send className="h-4 w-4" />
+        <Eraser className="h-4 w-4 mr-2" />
+        Clear My Messages
       </Button>
-    </form>
+    </div>
   );
 };
 

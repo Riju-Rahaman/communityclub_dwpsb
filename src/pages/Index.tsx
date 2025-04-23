@@ -50,9 +50,9 @@ const Index = () => {
     <div className="min-h-screen flex flex-col items-center text-center transition-colors duration-500">
       <MainNav />
       {/* Hero Section */}
-      <div className="w-full py-20 px-4 flex flex-col items-center glass-morphism rounded-none">
+      <div className="w-full py-20 px-4 flex flex-col items-center bg-gradient-to-b from-primary/50 to-transparent">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-gradient-primary animate-text-glow text-shadow-md">
+          <h1 className="text-5xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-accent to-secondary bg-clip-text text-transparent animate-text-glow text-shadow-md">
             Community Service Club
           </h1>
           <p className="text-2xl mb-4 text-accent font-medium tracking-wide animate-fade-in">
@@ -68,7 +68,7 @@ const Index = () => {
       {session && (
         <div className="w-full py-16 flex flex-col items-center text-center">
           <h2 className="text-3xl font-bold mb-8 text-foreground animate-fade-in text-shadow-sm">Club Community Chat</h2>
-          <div className="max-w-2xl w-full mx-auto glass-card rounded-xl p-6">
+          <div className="max-w-2xl w-full mx-auto glass-card rounded-xl p-6 hover:shadow-xl transition-all duration-300">
             <MessageList />
             <div className="mt-6">
               <MessageInput />
@@ -80,16 +80,18 @@ const Index = () => {
       {/* Activities Section */}
       <div className="w-full py-16">
         <h2 className="text-3xl font-bold mb-12 text-foreground animate-fade-in text-shadow-sm">Our Activities</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
           {activities.map((activity) => (
             <Card
               key={activity.title}
-              className="glass-card hover-scale hover-glow mx-auto"
+              className="glass-card hover-scale hover-glow transition-all duration-300 backdrop-blur-lg bg-gradient-to-br from-card/80 to-card/40"
             >
               <CardHeader>
                 <CardTitle className="flex flex-col items-center gap-2 text-center">
-                  <activity.icon className="h-8 w-8 text-accent mb-1" />
-                  <span className="text-xl font-bold">{activity.title}</span>
+                  <activity.icon className="h-8 w-8 text-accent animate-pulse" />
+                  <span className="text-xl font-bold bg-gradient-to-r from-white to-secondary/90 bg-clip-text text-transparent">
+                    {activity.title}
+                  </span>
                 </CardTitle>
               </CardHeader>
               <CardContent>

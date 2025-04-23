@@ -1,7 +1,6 @@
-
 import MainNav from "@/components/MainNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, TreePine, Handshake, Users } from "lucide-react";
+import { Award, MessageSquare, Wrench, Clock, Heart, Calendar, Flag, Users } from "lucide-react";
 import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
 import { useEffect, useState } from "react";
@@ -28,6 +27,49 @@ const activities = [
     title: "Community Support",
     description: "Assistance to orphanages and old age homes",
     icon: Users,
+  },
+];
+
+const skills = [
+  {
+    title: "Leadership",
+    description: "Organize events, delegate tasks, and inspire your team",
+    icon: Award,
+  },
+  {
+    title: "Teamwork",
+    description: "Collaborate effectively with diverse groups of peers",
+    icon: Users,
+  },
+  {
+    title: "Communication",
+    description: "Build confidence in public speaking, writing, and outreach",
+    icon: MessageSquare,
+  },
+  {
+    title: "Problem-Solving",
+    description: "Tackle real-world challenges during drives and initiatives",
+    icon: Wrench,
+  },
+  {
+    title: "Time Management",
+    description: "Balance academics and service work effectively",
+    icon: Clock,
+  },
+  {
+    title: "Empathy",
+    description: "Understand and respond to the needs of others compassionately",
+    icon: Heart,
+  },
+  {
+    title: "Event Planning",
+    description: "Learn to coordinate logistics, people, and promotions",
+    icon: Calendar,
+  },
+  {
+    title: "Civic Awareness",
+    description: "Gain deeper understanding of social issues and responsibilities",
+    icon: Flag,
   },
 ];
 
@@ -96,6 +138,37 @@ const Index = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-foreground/80 font-light">{activity.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Skills You Gain Section */}
+      <div className="w-full py-16 bg-gradient-to-b from-transparent to-primary/10">
+        <h2 className="text-3xl font-bold mb-12 text-foreground animate-fade-in text-shadow-sm">
+          Skills You Gain
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 max-w-7xl mx-auto">
+          {skills.map((skill) => (
+            <Card
+              key={skill.title}
+              className="glass-card hover-scale hover-glow transition-all duration-300 backdrop-blur-lg bg-gradient-to-br from-card/80 to-card/40 border-white/5"
+            >
+              <CardHeader>
+                <CardTitle className="flex flex-col items-center gap-3 text-center">
+                  <div className="p-3 rounded-full bg-accent/10 backdrop-blur-sm">
+                    <skill.icon className="h-6 w-6 text-accent" />
+                  </div>
+                  <span className="text-lg font-bold bg-gradient-to-r from-white to-secondary/90 bg-clip-text text-transparent">
+                    {skill.title}
+                  </span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-foreground/80 text-sm font-light leading-relaxed">
+                  {skill.description}
+                </p>
               </CardContent>
             </Card>
           ))}

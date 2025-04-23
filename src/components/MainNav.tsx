@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -47,10 +48,6 @@ const MainNav = () => {
     <nav className="backdrop-blur-md bg-primary/60 shadow-lg transition-all duration-300 sticky top-0 z-50 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="text-foreground text-xl font-bold hover:text-white/90 transition-colors">
-            <span className="animate-text-glow font-poppins">DWPS Community Service Club</span>
-          </Link>
-          
           <div className="flex items-center space-x-4">
             <Link 
               to="/" 
@@ -78,6 +75,10 @@ const MainNav = () => {
               </Button>
             )}
           </div>
+          
+          <Link to="/" className="text-foreground text-xl font-bold hover:text-white/90 transition-colors absolute left-1/2 transform -translate-x-1/2">
+            <span className="animate-text-glow font-poppins">DWPS Community Service Club</span>
+          </Link>
         </div>
       </div>
     </nav>

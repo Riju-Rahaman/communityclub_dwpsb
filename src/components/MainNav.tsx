@@ -56,7 +56,18 @@ const MainNav = () => {
             >
               <Home className="h-5 w-5" />
             </Link>
-            
+          </div>
+          
+          <Link 
+            to="/" 
+            className="absolute left-1/2 transform -translate-x-1/2 text-foreground text-xl font-bold hover:text-white/90 transition-colors hover:scale-105 duration-300"
+          >
+            <span className="animate-text-glow font-poppins bg-gradient-to-r from-white via-accent to-secondary bg-clip-text text-transparent">
+              DWPS Community Service Club
+            </span>
+          </Link>
+          
+          <div className="flex items-center space-x-4">
             {!isLoggedIn ? (
               <Button 
                 variant="secondary" 
@@ -75,15 +86,6 @@ const MainNav = () => {
               </Button>
             )}
           </div>
-          
-          <Link 
-            to="/" 
-            className="text-foreground text-xl font-bold hover:text-white/90 transition-colors absolute left-1/2 transform -translate-x-1/2 hover:scale-105 duration-300"
-          >
-            <span className="animate-text-glow font-poppins bg-gradient-to-r from-white via-accent to-secondary bg-clip-text text-transparent">
-              DWPS Community Service Club
-            </span>
-          </Link>
         </div>
       </div>
     </nav>

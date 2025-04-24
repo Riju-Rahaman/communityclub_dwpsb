@@ -1,6 +1,6 @@
 import MainNav from "@/components/MainNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Award, MessageSquare, Wrench, Clock, Heart, Calendar, Flag, Users } from "lucide-react";
+import { Award, MessageSquare, Wrench, Clock, Heart, Calendar, Flag, Users, Leaf, HandHelp } from "lucide-react";
 import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
 import { useEffect, useState } from "react";
@@ -16,12 +16,12 @@ const activities = [
   {
     title: "Tree Plantation",
     description: "Environmental awareness and green initiatives",
-    icon: TreePine,
+    icon: Leaf,
   },
   {
     title: "Donation Drives",
     description: "Collection and distribution of essential items",
-    icon: Handshake,
+    icon: HandHelp,
   },
   {
     title: "Community Support",

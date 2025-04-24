@@ -6,7 +6,7 @@ export function Header() {
     <header className="bg-primary py-4 text-white relative overflow-hidden animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
         <h1 className="text-3xl font-bold text-center w-full animate-text-glow">
-          Community Service Club
+          DWPS Community Service Club
         </h1>
         <ThemeToggle />
       </div>

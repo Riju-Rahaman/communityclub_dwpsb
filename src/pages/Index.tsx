@@ -95,7 +95,7 @@ const Index = () => {
       <div className="w-full py-20 px-4 flex flex-col items-center bg-gradient-to-b from-primary/50 to-transparent">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-accent to-secondary bg-clip-text text-transparent animate-text-glow text-shadow-md">
-            Community Service Club
+            CSC Club
           </h1>
           <p className="text-2xl mb-4 text-accent font-medium tracking-wide animate-fade-in">
             Delhi World Public School, Barasat

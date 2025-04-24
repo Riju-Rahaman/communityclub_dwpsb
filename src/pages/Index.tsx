@@ -1,6 +1,6 @@
 import MainNav from "@/components/MainNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Award, MessageSquare, Wrench, Clock, Heart, Calendar, Flag, Users, Leaf, HandHelp } from "lucide-react";
+import { Award, MessageSquare, Wrench, Clock, Heart, Calendar, Flag, Users, Leaf, HandHelping } from "lucide-react";
 import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
 import { useEffect, useState } from "react";
@@ -21,7 +21,7 @@ const activities = [
   {
     title: "Donation Drives",
     description: "Collection and distribution of essential items",
-    icon: HandHelp,
+    icon: HandHelping,
   },
   {
     title: "Community Support",

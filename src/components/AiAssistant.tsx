@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,7 +18,7 @@ const AiAssistant = () => {
     
     setIsLoading(true);
     try {
-      const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent", {
+      const res = await fetch("https://generativelanguage.googleapis.com/v1/models/gemini-1.0-pro:generateContent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,9 +42,14 @@ const AiAssistant = () => {
       });
       
       const data = await res.json();
+      
       if (data.candidates && data.candidates[0].content) {
         setResponse(data.candidates[0].content.parts[0].text);
+      } else if (data.promptFeedback && data.promptFeedback.blockReason) {
+        setResponse(`Sorry, your request was blocked: ${data.promptFeedback.blockReason}`);
+        toast.error("Request blocked by AI safety filters");
       } else {
+        console.error("Unexpected API response:", data);
         setResponse("Sorry, I couldn't process your request. Please try again.");
       }
     } catch (error) {
@@ -122,4 +126,3 @@ const AiAssistant = () => {
 };
 
 export default AiAssistant;
-

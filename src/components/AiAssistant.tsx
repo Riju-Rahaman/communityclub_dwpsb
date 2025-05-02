@@ -23,7 +23,7 @@ const AiAssistant = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-goog-api-key": "AIzaSyDt05e2s2SDw3WU9Hk24swo2PPgnJMaR00"
+          "x-goog-api-key": "AIzaSyDUWqtcLCBoAVNrPUDFxv9phaVXp4BQDvg"
         },
         body: JSON.stringify({
           contents: [
@@ -122,3 +122,4 @@ const AiAssistant = () => {
 };
 
 export default AiAssistant;
+

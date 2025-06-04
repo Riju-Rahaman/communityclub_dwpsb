@@ -1,5 +1,3 @@
-
-
 import MainNav from "@/components/MainNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -122,60 +120,6 @@ const Index = () => {
         </div>
       )}
 
-      {/* Gallery Section */}
-      <div className="w-full py-16">
-        <h2 className="text-3xl font-bold mb-12 text-foreground animate-fade-in text-shadow-sm">Gallery</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 max-w-4xl mx-auto">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Card className="glass-card hover-scale hover-glow transition-all duration-300 backdrop-blur-lg bg-gradient-to-br from-card/80 to-card/40 cursor-pointer">
-                <CardContent className="p-0">
-                  <img 
-                    src="https://i.ibb.co/cct0whjT/idk.jpg" 
-                    alt="Community Service Activity 1"
-                    className="w-full h-64 object-cover rounded-t-lg"
-                  />
-                  <div className="p-4">
-                    <p className="text-foreground/80 font-light">Community Service in Action</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none">
-              <img 
-                src="https://i.ibb.co/cct0whjT/idk.jpg" 
-                alt="Community Service Activity 1"
-                className="w-full h-auto object-contain rounded-lg"
-              />
-            </DialogContent>
-          </Dialog>
-          
-          <Dialog>
-            <DialogTrigger asChild>
-              <Card className="glass-card hover-scale hover-glow transition-all duration-300 backdrop-blur-lg bg-gradient-to-br from-card/80 to-card/40 cursor-pointer">
-                <CardContent className="p-0">
-                  <img 
-                    src="https://i.ibb.co/5xMZ9NFB/idk2.jpg" 
-                    alt="Community Service Activity 2"
-                    className="w-full h-64 object-cover rounded-t-lg"
-                  />
-                  <div className="p-4">
-                    <p className="text-foreground/80 font-light">Making a Difference Together</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none">
-              <img 
-                src="https://i.ibb.co/5xMZ9NFB/idk2.jpg" 
-                alt="Community Service Activity 2"
-                className="w-full h-auto object-contain rounded-lg"
-              />
-            </DialogContent>
-          </Dialog>
-        </div>
-      </div>
-
       {/* Activities Section */}
       <div className="w-full py-16">
         <h2 className="text-3xl font-bold mb-12 text-foreground animate-fade-in text-shadow-sm">Our Activities</h2>
@@ -231,9 +175,62 @@ const Index = () => {
           ))}
         </div>
       </div>
+
+      {/* Gallery Section */}
+      <div className="w-full py-16">
+        <h2 className="text-3xl font-bold mb-12 text-foreground animate-fade-in text-shadow-sm">Gallery</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 max-w-4xl mx-auto">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Card className="glass-card hover-scale hover-glow transition-all duration-300 backdrop-blur-lg bg-gradient-to-br from-card/80 to-card/40 cursor-pointer">
+                <CardContent className="p-0">
+                  <img 
+                    src="https://i.ibb.co/cct0whjT/idk.jpg" 
+                    alt="Community Service Activity 1"
+                    className="w-full h-64 object-cover rounded-t-lg"
+                  />
+                  <div className="p-4">
+                    <p className="text-foreground/80 font-light">Community Service in Action</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none">
+              <img 
+                src="https://i.ibb.co/cct0whjT/idk.jpg" 
+                alt="Community Service Activity 1"
+                className="w-full h-auto object-contain rounded-lg"
+              />
+            </DialogContent>
+          </Dialog>
+          
+          <Dialog>
+            <DialogTrigger asChild>
+              <Card className="glass-card hover-scale hover-glow transition-all duration-300 backdrop-blur-lg bg-gradient-to-br from-card/80 to-card/40 cursor-pointer">
+                <CardContent className="p-0">
+                  <img 
+                    src="https://i.ibb.co/5xMZ9NFB/idk2.jpg" 
+                    alt="Community Service Activity 2"
+                    className="w-full h-64 object-cover rounded-t-lg"
+                  />
+                  <div className="p-4">
+                    <p className="text-foreground/80 font-light">Making a Difference Together</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none">
+              <img 
+                src="https://i.ibb.co/5xMZ9NFB/idk2.jpg" 
+                alt="Community Service Activity 2"
+                className="w-full h-auto object-contain rounded-lg"
+              />
+            </DialogContent>
+          </Dialog>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Index;
-

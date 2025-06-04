@@ -7,31 +7,31 @@
 
 @layer base {
   :root {
-    --background: #0f172a;
-    --foreground: #f8fafc;
-    --card: rgba(30, 41, 59, 0.7);
-    --card-foreground: #f8fafc;
-    --popover: rgba(30, 41, 59, 0.8);
-    --popover-foreground: #f8fafc;
-    --primary: #0f172a;
-    --primary-foreground: #f8fafc;
+    --background: #2d3748;
+    --foreground: #f7fafc;
+    --card: rgba(45, 55, 72, 0.8);
+    --card-foreground: #f7fafc;
+    --popover: rgba(45, 55, 72, 0.9);
+    --popover-foreground: #f7fafc;
+    --primary: #2d3748;
+    --primary-foreground: #f7fafc;
     --secondary: #a78bfa;
-    --secondary-foreground: #f8fafc;
-    --muted: #1e293b;
-    --muted-foreground: #94a3b8;
+    --secondary-foreground: #f7fafc;
+    --muted: #4a5568;
+    --muted-foreground: #cbd5e0;
     --accent: #38bdf8;
-    --accent-foreground: #0f172a;
+    --accent-foreground: #2d3748;
     --destructive: #ef4444;
-    --destructive-foreground: #f8fafc;
-    --border: rgba(148, 163, 184, 0.2);
-    --input: rgba(30, 41, 59, 0.5);
+    --destructive-foreground: #f7fafc;
+    --border: rgba(203, 213, 224, 0.3);
+    --input: rgba(45, 55, 72, 0.6);
     --ring: #38bdf8;
     --radius: 0.75rem;
   }
 
   html {
-    background: linear-gradient(to bottom, #0f172a, #1e293b) fixed;
-    color: #f8fafc;
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 50%, #2d3748 100%) fixed;
+    color: #f7fafc;
     height: 100%;
   }
 
@@ -40,12 +40,14 @@
     margin: 0;
     letter-spacing: 0.015em;
     font-weight: 300;
+    background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #2d3748 0%, #4a5568 50%, #2d3748 100%);
   }
 
   #root {
     @apply min-h-screen flex flex-col;
     background: transparent;
-    color: #f8fafc;
+    color: #f7fafc;
   }
 
   * {
@@ -55,14 +57,16 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-poppins font-semibold;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
 }
 
 @layer components {
   .glass-card {
-    @apply backdrop-blur-lg bg-card/70 border border-white/10 shadow-lg;
+    @apply backdrop-blur-lg bg-card/80 border border-white/20 shadow-xl;
     border-radius: var(--radius);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   }
   
   .hover-scale {
@@ -74,8 +78,9 @@
   }
   
   .hover-glow:hover {
-    @apply border-accent/50;
-    box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+    @apply border-accent/60;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.4),
+                0 8px 32px rgba(0, 0, 0, 0.3);
   }
   
   .nav-link {
@@ -91,12 +96,12 @@
   }
   
   .message-bubble {
-    @apply rounded-xl bg-card/80 backdrop-blur-sm shadow-sm border border-white/5 p-4;
+    @apply rounded-xl bg-card/90 backdrop-blur-sm shadow-lg border border-white/10 p-4;
   }
   
   .timestamp {
-    @apply text-xs text-muted-foreground/60 transition-opacity duration-300;
-    opacity: 0.5;
+    @apply text-xs text-muted-foreground/70 transition-opacity duration-300;
+    opacity: 0.6;
   }
   
   .message-bubble:hover .timestamp {
@@ -106,15 +111,15 @@
 
 @layer utilities {
   .glass-morphism {
-    @apply backdrop-blur-xl bg-black/5 border border-white/10 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)];
+    @apply backdrop-blur-xl bg-black/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)];
   }
   
   .text-shadow-sm {
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   }
   
   .text-shadow-md {
-    text-shadow: 0 4px 8px rgba(0,0,0,0.12);
+    text-shadow: 0 4px 8px rgba(0,0,0,0.4);
   }
   
   .scrollbar-none {

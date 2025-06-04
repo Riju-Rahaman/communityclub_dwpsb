@@ -1,3 +1,4 @@
+
 import MainNav from "@/components/MainNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -195,11 +196,11 @@ const Index = () => {
                 </CardContent>
               </Card>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none">
+            <DialogContent className="max-w-2xl w-full p-2 bg-transparent border-none">
               <img 
                 src="https://i.ibb.co/cct0whjT/idk.jpg" 
                 alt="Community Service Activity 1"
-                className="w-full h-auto object-contain rounded-lg"
+                className="w-full h-auto object-contain rounded-lg border-2 border-white/20"
               />
             </DialogContent>
           </Dialog>
@@ -219,11 +220,11 @@ const Index = () => {
                 </CardContent>
               </Card>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none">
+            <DialogContent className="max-w-2xl w-full p-2 bg-transparent border-none">
               <img 
                 src="https://i.ibb.co/5xMZ9NFB/idk2.jpg" 
                 alt="Community Service Activity 2"
-                className="w-full h-auto object-contain rounded-lg"
+                className="w-full h-auto object-contain rounded-lg border-2 border-white/20"
               />
             </DialogContent>
           </Dialog>

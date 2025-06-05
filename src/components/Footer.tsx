@@ -17,17 +17,21 @@ export function Footer() {
           
           {/* Secondary attribution */}
           <div className="flex items-center justify-center gap-2 animate-fade-in">
-            <span className="text-sm text-muted-foreground">Crafted with</span>
-            <Heart className="text-red-500 animate-pulse h-4 w-4" />
-            <span className="text-sm text-muted-foreground">by Riju Rahaman</span>
+            <span className="text-sm text-white/90 font-medium">Crafted with</span>
+            <Heart className="text-red-400 animate-pulse h-4 w-4 drop-shadow-sm" />
+            <span className="text-sm text-white/90 font-medium">by</span>
+            <span className="text-sm font-semibold bg-gradient-to-r from-accent to-secondary bg-clip-text text-transparent">
+              Riju Rahaman
+            </span>
           </div>
           
           {/* Copyright */}
-          <div className="text-center space-y-2 animate-fade-in">
-            <p className="text-sm text-muted-foreground/80">
-              © {new Date().getFullYear()} DWPS Community Service Club. All rights reserved.
+          <div className="text-center space-y-3 animate-fade-in">
+            <div className="w-24 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mx-auto"></div>
+            <p className="text-xs text-white/70 font-light tracking-wide">
+              © {new Date().getFullYear()} <span className="font-medium text-white/90">DWPS Community Service Club</span>. All rights reserved.
             </p>
-            <div className="w-32 h-px bg-gradient-to-r from-transparent via-accent to-transparent mx-auto"></div>
+            <div className="w-32 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent mx-auto"></div>
           </div>
         </div>
       </div>

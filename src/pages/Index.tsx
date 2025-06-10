@@ -37,41 +37,57 @@ const skills = [
     title: "Leadership",
     description: "Organize events, delegate tasks, and inspire your team",
     icon: Award,
+    color: "from-blue-500/20 to-purple-500/20",
+    iconColor: "text-blue-400",
   },
   {
-    title: "Teamwork",
+    title: "Teamwork", 
     description: "Collaborate effectively with diverse groups of peers",
     icon: Users,
+    color: "from-green-500/20 to-emerald-500/20",
+    iconColor: "text-green-400",
   },
   {
     title: "Communication",
     description: "Build confidence in public speaking, writing, and outreach",
     icon: MessageSquare,
+    color: "from-orange-500/20 to-red-500/20",
+    iconColor: "text-orange-400",
   },
   {
     title: "Problem-Solving",
     description: "Tackle real-world challenges during drives and initiatives",
     icon: Wrench,
+    color: "from-purple-500/20 to-pink-500/20",
+    iconColor: "text-purple-400",
   },
   {
     title: "Time Management",
     description: "Balance academics and service work effectively",
     icon: Clock,
+    color: "from-cyan-500/20 to-blue-500/20",
+    iconColor: "text-cyan-400",
   },
   {
     title: "Empathy",
     description: "Understand and respond to the needs of others compassionately",
     icon: Heart,
+    color: "from-rose-500/20 to-pink-500/20",
+    iconColor: "text-rose-400",
   },
   {
     title: "Event Planning",
     description: "Learn to coordinate logistics, people, and promotions",
     icon: Calendar,
+    color: "from-indigo-500/20 to-purple-500/20",
+    iconColor: "text-indigo-400",
   },
   {
     title: "Civic Awareness",
     description: "Gain deeper understanding of social issues and responsibilities",
     icon: Flag,
+    color: "from-yellow-500/20 to-orange-500/20",
+    iconColor: "text-yellow-400",
   },
 ];
 
@@ -93,6 +109,7 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center text-center transition-colors duration-500">
       <MainNav />
+      
       {/* Hero Section */}
       <div className="w-full py-20 px-4 flex flex-col items-center bg-gradient-to-b from-primary/50 to-transparent">
         <div className="max-w-4xl mx-auto">
@@ -147,33 +164,57 @@ const Index = () => {
       </div>
 
       {/* Skills You Gain Section */}
-      <div className="w-full py-16 bg-gradient-to-b from-transparent to-primary/10">
-        <h2 className="text-3xl font-bold mb-12 text-foreground animate-fade-in text-shadow-sm">
-          Skills You Gain
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 max-w-7xl mx-auto">
-          {skills.map((skill) => (
-            <Card
-              key={skill.title}
-              className="glass-card hover-scale hover-glow transition-all duration-300 backdrop-blur-lg bg-gradient-to-br from-card/80 to-card/40 border-white/5"
-            >
-              <CardHeader>
-                <CardTitle className="flex flex-col items-center gap-3 text-center">
-                  <div className="p-3 rounded-full bg-accent/10 backdrop-blur-sm">
-                    <skill.icon className="h-6 w-6 text-accent" />
-                  </div>
-                  <span className="text-lg font-bold bg-gradient-to-r from-white to-secondary/90 bg-clip-text text-transparent">
-                    {skill.title}
-                  </span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-foreground/80 text-sm font-light leading-relaxed">
-                  {skill.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+      <div className="w-full py-20 bg-gradient-to-b from-transparent via-primary/5 to-transparent relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(56,189,248,0.1),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(167,139,250,0.1),transparent_50%)] pointer-events-none" />
+        
+        <div className="relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-accent to-secondary bg-clip-text text-transparent animate-text-glow">
+              Skills You Gain
+            </h2>
+            <p className="text-lg text-foreground/70 max-w-2xl mx-auto px-4">
+              Develop essential life skills through meaningful community service
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6 max-w-7xl mx-auto">
+            {skills.map((skill, index) => (
+              <Card
+                key={skill.title}
+                className={`group relative overflow-hidden backdrop-blur-xl bg-gradient-to-br ${skill.color} border border-white/10 hover:border-white/20 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-accent/20 animate-fade-in`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <CardHeader className="relative z-10 pb-4">
+                  <CardTitle className="flex flex-col items-center gap-4 text-center">
+                    <div className={`relative p-4 rounded-xl bg-gradient-to-br from-card/50 to-transparent border border-white/10 group-hover:border-white/20 transition-all duration-300 group-hover:scale-110`}>
+                      <skill.icon className={`h-8 w-8 ${skill.iconColor} transition-all duration-300 group-hover:drop-shadow-lg`} />
+                      
+                      {/* Icon glow effect */}
+                      <div className={`absolute inset-0 rounded-xl ${skill.iconColor.replace('text-', 'bg-')} opacity-20 blur-xl scale-150 group-hover:opacity-40 transition-opacity duration-500`} />
+                    </div>
+                    
+                    <span className="text-xl font-bold bg-gradient-to-r from-white to-foreground/90 bg-clip-text text-transparent group-hover:from-accent group-hover:to-secondary transition-all duration-300">
+                      {skill.title}
+                    </span>
+                  </CardTitle>
+                </CardHeader>
+                
+                <CardContent className="relative z-10 pt-0 pb-6">
+                  <p className="text-foreground/80 text-sm leading-relaxed group-hover:text-foreground/90 transition-colors duration-300">
+                    {skill.description}
+                  </p>
+                </CardContent>
+                
+                {/* Bottom accent line */}
+                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${skill.iconColor.replace('text-', 'from-')} to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-300`} />
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
 

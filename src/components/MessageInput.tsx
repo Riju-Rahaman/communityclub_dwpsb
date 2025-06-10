@@ -64,7 +64,24 @@ const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
 
       console.log('Clearing messages for user:', user.id);
 
-      const { error, count } = await supabase
+      // First check if there are any messages to delete
+      const { data: existingMessages, error: checkError } = await supabase
+        .from('messages')
+        .select('id')
+        .eq('user_id', user.id);
+
+      if (checkError) {
+        console.error('Error checking messages:', checkError);
+        toast.error('Failed to check messages');
+        return;
+      }
+
+      if (!existingMessages || existingMessages.length === 0) {
+        toast.success('No messages to clear');
+        return;
+      }
+
+      const { error } = await supabase
         .from('messages')
         .delete()
         .eq('user_id', user.id);
@@ -73,8 +90,9 @@ const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
         console.error('Error clearing messages:', error);
         toast.error('Failed to clear messages');
       } else {
-        console.log('Messages cleared, count:', count);
-        toast.success('Your messages have been cleared');
+        console.log(`Cleared ${existingMessages.length} messages`);
+        toast.success(`Cleared ${existingMessages.length} messages`);
+        // Trigger refresh of the message list
         onMessageSent?.();
       }
     } catch (error) {

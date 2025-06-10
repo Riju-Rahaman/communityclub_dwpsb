@@ -13,6 +13,7 @@ interface MessageInputProps {
 const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isClearing, setIsClearing] = useState(false);
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,6 +37,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
         });
 
       if (error) {
+        console.error('Error sending message:', error);
         toast.error('Failed to send message');
       } else {
         setMessage('');
@@ -51,6 +53,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
   };
 
   const handleClearMessages = async () => {
+    setIsClearing(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
       
@@ -59,20 +62,26 @@ const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
         return;
       }
 
-      const { error } = await supabase
+      console.log('Clearing messages for user:', user.id);
+
+      const { error, count } = await supabase
         .from('messages')
         .delete()
         .eq('user_id', user.id);
 
       if (error) {
+        console.error('Error clearing messages:', error);
         toast.error('Failed to clear messages');
       } else {
-        toast.success('Messages cleared');
+        console.log('Messages cleared, count:', count);
+        toast.success('Your messages have been cleared');
         onMessageSent?.();
       }
     } catch (error) {
       console.error('Error clearing messages:', error);
       toast.error('An unexpected error occurred');
+    } finally {
+      setIsClearing(false);
     }
   };
 
@@ -96,11 +105,12 @@ const MessageInput: React.FC<MessageInputProps> = ({ onMessageSent }) => {
       </form>
       <Button
         onClick={handleClearMessages}
+        disabled={isClearing}
         variant="outline"
         className="w-full text-sm text-muted-foreground hover:text-destructive border border-white/10 bg-transparent hover:bg-destructive/10 rounded-xl transition-all duration-300"
       >
         <Trash2 className="h-4 w-4 mr-2" />
-        Clear My Messages
+        {isClearing ? 'Clearing...' : 'Clear My Messages'}
       </Button>
     </div>
   );
